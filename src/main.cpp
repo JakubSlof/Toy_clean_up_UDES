@@ -94,4 +94,16 @@ void setup()
     forward(50);
     turn(75);
     back_button();
+    //cesta z rohu eskem zpet
+    forward(100);
+    turn_by_wall();
+    back_button();
+    forward(100);
+    curve(100,90,true);
+    forward(50);
+    curve(150, 150, false);
+    forward(500);
+
+
+
 }
