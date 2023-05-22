@@ -112,6 +112,7 @@ void setup()
             back_button();
             // jizda pro kostku
             forward(700);
+            //tady se rozhodne na jakou barvu robot pojede 
             // tady se pozna barva a pojede se do spravneho pole
             back_button();
             // jizda zpet ke zdi nakonec eska
@@ -125,8 +126,23 @@ void setup()
             forward(100);
             turn_by_wall();
             back_button();
-            forward(100);
+            forward(300);
             state = 11;
+            break;
+        case 11:
+            state = 12;
+            // musi se dopocitat
+            curve(150, 90, 13, true);
+            break;
+        case 13:
+            state = 14;
+            // musi se dopocitat
+            curve(150, 180, 15, true);
+            break;
+        case 15:
+            state = 16;
+            forward(500);
+            state = 17;
             break;
         }
     }
