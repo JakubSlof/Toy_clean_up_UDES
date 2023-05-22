@@ -1,6 +1,7 @@
 const int speed = 100;
 const float ticksToMm = 3.62; // prepocet z tiku v enkoderech na mm
 const float wheel_diameter = 162;
+byte state = 1;
 
 //jizda rovne o zadanou vzdalenost 
 void forward(int mm)
@@ -17,20 +18,18 @@ void turn(int degrees)
 
 //oblouk
 // tue=doprava, false=doleva
-void curve(int radius, int degrees, bool right)
-{
-    int sR = radius / radius * 40;
+void curve(int radius, int degrees, byte new_state, bool right){
+    int sR = radius/radius * 40;
     int sL = (radius + wheel_diameter) / radius * 40;
     printf("sR: %i, sL: %i\n", sR, sL);
     if (right)
     {
-        rkMotorsDriveRightAsync((ticksToMm * radius * PI * degrees) / 180, sR);
-        rkMotorsDriveLeftAsync((ticksToMm * (radius + wheel_diameter) * PI * degrees) / 180, sL);
+    rkMotorsDriveRightAsync((ticksToMm * radius * PI * degrees)/180, sR, [&, new_state](){state = new_state;});
+    rkMotorsDriveLeftAsync((ticksToMm * (radius + wheel_diameter) * PI * degrees)/180, sL);
     }
-    else
-    {
-        rkMotorsDriveLeftAsync((ticksToMm * radius * PI * degrees) / 180, sR);
-        rkMotorsDriveRightAsync((ticksToMm * (radius + wheel_diameter) * PI * degrees) / 180, sL);
+    else{
+    rkMotorsDriveLeftAsync((ticksToMm * radius * PI * degrees)/180, sR, [&, new_state](){state = new_state;});
+    rkMotorsDriveRightAsync((ticksToMm * (radius + wheel_diameter) * PI * degrees)/180, sL);
     }
 }
 

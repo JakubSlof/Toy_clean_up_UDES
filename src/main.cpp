@@ -26,6 +26,7 @@
 #include "motors_commands.h"
 ///////////////////////
 float g_US = 1;
+
 ///////////////////////
 void encodery()
 {
@@ -68,42 +69,65 @@ void setup()
             break;
         }
     }
-    // jizda eskem
-    arm_up();
-    back_button();
-    forward(500);
-    curve(150, 180, true);
-    forward(50);
-    curve(150, 150, false);
-    // jizda od eska do hriste
-    forward(1950);
-    // otocka do hriste
-    turn_by_wall();
-    // jizda doprostred hriste
-    forward(500);
-    turn(-90);
-    back_button();
-    // jizda pro kostku
-    forward(800);
-    // tady se pozna barva a pojede se do spravneho pole
-    back_button();
-    // jizda zpet ke zdi nakonec eska
-    forward(220);
-    turn(93);
-    back_button();
-    forward(50);
-    turn(75);
-    back_button();
-    //cesta z rohu eskem zpet
-    forward(100);
-    turn_by_wall();
-    back_button();
-    forward(100);
-    curve(100,90,true);
-    forward(50);
-    curve(150, 150, false);
-    forward(500);
 
-
-
+    /////////////////////////////////////
+    while (true)
+    {
+        // printf("state= %u \n", state);
+        delay(20);
+        switch (state)
+        {
+        case 1:
+            state = 2;
+            // jizda eskem
+            arm_up();
+            back_button();
+            forward(500);
+            state = 3;
+            break;
+        case 3:
+            state = 4;
+            // jizda eskem
+            curve(150, 180, 5, true);
+            break;
+        case 5:
+            state = 6;
+            // jizda eskem
+            forward(50);
+            state = 7;
+            break;
+        case 7:
+            state = 8;
+            // jizda eskem
+            curve(150, 150, 9, false);
+            break;
+        case 9:
+            state = 10;
+            forward(1750);
+            // otocka do hriste
+            turn_by_wall();
+            // jizda doprostred hriste
+            forward(550);
+            turn(-90);
+            back_button();
+            // jizda pro kostku
+            forward(700);
+            // tady se pozna barva a pojede se do spravneho pole
+            back_button();
+            // jizda zpet ke zdi nakonec eska
+            forward(220);
+            turn(93);
+            back_button();
+            forward(50);
+            turn(75);
+            back_button();
+            // cesta z rohu eskem zpet
+            forward(100);
+            turn_by_wall();
+            back_button();
+            forward(100);
+            state = 11;
+            break;
+        }
+    }
 }
