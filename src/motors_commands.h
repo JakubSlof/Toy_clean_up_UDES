@@ -79,3 +79,38 @@ void turn_by_wall()
     delay(1000);
     back_button();
 }
+//robot jede na cervene pole
+void go_to_red(){
+//sevre klepeta
+arm_up();
+back_button();
+forward(150);
+turn(-90);
+forward(-450);//doladit
+turn(90);
+back_button();
+arm_back();
+//klepeta pustit
+}
+
+void go_to_green(){
+//sevre klepeta
+arm_up();
+back_button();
+arm_back();
+//klepeta pustit
+}
+
+
+void go_to_blue(){
+//sevre klepeta
+arm_up();
+back_button();
+forward(150);
+turn(90);
+forward(-450);//doladit
+turn(-90);
+back_button();
+arm_back();
+//klepeta pustit
+}
